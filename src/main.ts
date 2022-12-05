@@ -6,6 +6,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import fastifyCompress from '@fastify/compress';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -26,6 +27,7 @@ async function bootstrap() {
   };
   SwaggerModule.setup('api', app, document, options);
 
+  await app.register(fastifyCompress);
   await app.listen(3000);
 }
 bootstrap();
